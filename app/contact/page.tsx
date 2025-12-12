@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { FiX } from "react-icons/fi";
 
 // Socials from react-icons (brand colors available)
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -68,9 +67,6 @@ const Notification: React.FC<NotificationProps> = ({
         {icons[type]}
       </div>
       <span className="flex-1">{text}</span>
-      <button onClick={() => removeNotif(id)} className="ml-2">
-        <FiX />
-      </button>
     </motion.div>
   );
 };
