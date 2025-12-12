@@ -59,11 +59,11 @@ export default function AboutPage() {
             <p className="text-sm font-medium text-[var(--sun)]">About Me</p>
 
             <h1 className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
-              Hi — I’m Anchal Sahani.
+              Hi — I&apos;m Anchal Sahani.
             </h1>
 
             <p className="mt-4 text-base sm:text-lg opacity-90 max-w-xl">
-              I’m a third-year IT undergrad passionate about building fast,
+              I&apos;m a third-year IT undergrad passionate about building fast,
               accessible and scalable web experiences. I focus on clean
               engineering, polished UI/UX, and production-ready development.
             </p>
