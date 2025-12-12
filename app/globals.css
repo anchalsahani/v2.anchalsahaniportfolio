@@ -1,26 +1,141 @@
-@import "tailwindcss";
+/* =============================
+   Google Fonts (Premium)
+============================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital,wght@0,400;1,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/seven-swordsmen-bb');
 
+/* =============================
+   Tailwind Directives
+============================= */
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================
+   Dark Technical Theme Variables
+============================= */
+/* =============================
+   Technical Dark Theme (Screenshot Accurate)
+============================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --grid-size: 22px;
+
+  /* Base background + text */
+  --background: #0b0f19;           /* deep navy black */
+  --foreground: #d0d7e3;           /* cool soft white */
+
+  /* Tech blue accents */
+  --sun: #3ef8a9;                  /* primary blue */
+  --amber: #2e3f6d;                /* hover blue */
+  --honey: #5c8cff;                /* softer blue */
+
+  /* Neon green accent (for success / code highlights) */
+  --accent-green: #3ef8a9;
+
+  /* Grid (very subtle blue-grey) */
+  --grid-line: rgba(120, 140, 180, 0.04);
+  --grid-major: rgba(120, 140, 180, 0.08);
+
+  /* Surfaces */
+  --surface-1000: #121722;         /* card background */
+  --surface-900: #0c111b;          /* code panel background */
+
+  --text-on-surface: var(--foreground);
+  --bg-on-surface: var(--surface-1000);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sun: var(--sun);
+  --color-amber: var(--amber);
+  --color-honey: var(--honey);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* =============================
+   Base Styles
+============================= */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+  background-size:
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size),
+    calc(var(--grid-size) * 5) calc(var(--grid-size) * 5),
+    calc(var(--grid-size) * 5) calc(var(--grid-size) * 5);
+
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* =============================
+   Aurora (Subtle Blue Glow)
+============================= */
+body::before {
+  content: "";
+  position: absolute;
+  top: -250px;
+  left: 0;
+  width: 100%;
+  height: 450px;
+  background: radial-gradient(
+    ellipse at 70% 0%,
+    rgba(60, 110, 255, 0.15),
+    rgba(40, 70, 200, 0.10),
+    transparent 70%
+  );
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =============================
+   Buttons (Tech Blue)
+============================= */
+button, .btn {
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary {
+  background-color: var(--sun);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: var(--amber);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--honey);
+  color: var(--honey);
+}
+.btn-secondary:hover {
+  background-color: var(--honey);
+  color: #0b0f19;
+  transform: translateY(-1px);
+}
+/* Completely hide scrollbar for all browsers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none !important; /* IE, Edge */
+  scrollbar-width: none !important; /* Firefox */
 }
