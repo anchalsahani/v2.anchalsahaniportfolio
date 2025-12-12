@@ -50,13 +50,13 @@ export default function Navbar() {
         
         {/* LOGO Placeholder */}
         <Link href="/" className="flex pb-2 items-center">
-          <span
-            className="text-2xl font-extrabold tracking-wide"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
-          >
-            LOGO
-          </span>
+            <img
+            src="/logo.png"   // ← your logo path here
+            alt="Logo"
+            className="h-16 w-auto object-contain"
+            />
         </Link>
+
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 ml-5 justify-center">

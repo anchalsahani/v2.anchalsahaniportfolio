@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   description:
     "Frontend Developer & UI Engineer specializing in modern web applications with React, Next.js, TypeScript, and TailwindCSS.",
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logo.png",
   },
   metadataBase: new URL("https://anchalsahani.com"), // update when domain is live
   openGraph: {

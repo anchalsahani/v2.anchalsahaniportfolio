@@ -174,7 +174,7 @@ export default function Hero() {
 
         {/* View Projects */}
         <MotionLink
-          href="/projects"
+          href="./about"
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           className="

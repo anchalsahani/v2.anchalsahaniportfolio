@@ -235,15 +235,7 @@ export default function ContactPage() {
               <Mail className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="opacity-80">info@zentrok.com</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 mt-6">
-              <Phone className="text-[var(--sun)] w-6 h-6" />
-              <div>
-                <h3 className="font-semibold">Phone</h3>
-                <p className="opacity-80">+91 92118 70764</p>
+                <p className="opacity-80">sahanianchal7@gmail.com</p>
               </div>
             </div>
 
@@ -251,7 +243,7 @@ export default function ContactPage() {
               <MapPin className="text-[var(--sun)] w-6 h-6" />
               <div>
                 <h3 className="font-semibold">Address</h3>
-                <p className="opacity-80">Noida, Uttar Pradesh, India</p>
+                <p className="opacity-80">Delhi, India</p>
               </div>
             </div>
 
@@ -272,21 +264,6 @@ export default function ContactPage() {
           </div>
         </motion.div>
       </main>
-
-      {/* Map */}
-      <section className="w-full max-w-6xl mx-auto px-6 lg:px-20 pb-12">
-        <h2 className="text-2xl font-semibold mb-4 ">Our Location</h2>
-        <div className="rounded-xl overflow-hidden shadow-lg">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.2050728280515!2d77.36404817550047!3d28.623615275669607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce544da5a9ebf%3A0x4024cbbabd66b412!2sKLJ%20Noida%20One!5e0!3m2!1sen!2sin!4v1756532048940!5m2!1sen!2sin"
-            width="100%"
-            height="400"
-            loading="lazy"
-            className="border-0 w-full"
-          ></iframe>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );
