@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, ReactNode } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronLeft, Send } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 type Position = { left: number; width: number; opacity: number };
@@ -47,16 +47,15 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}
     >
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
-        
-        {/* LOGO Placeholder */}
+
+        {/* LOGO */}
         <Link href="/" className="flex pb-2 items-center">
-            <img
-            src="/logo.png"   // ← your logo path here
+          <img
+            src="/logo.png"
             alt="Logo"
             className="h-16 w-auto object-contain"
-            />
+          />
         </Link>
-
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 ml-5 justify-center">
@@ -76,12 +75,11 @@ export default function Navbar() {
               </NavTab>
             ))}
 
-            {/* 3D Glass Cursor Highlight */}
             <Cursor position={hoverPos.opacity ? hoverPos : activePos} />
           </ul>
         </div>
 
-        {/* Smaller Centered CV Button */}
+        {/* Desktop CV Button */}
         <div className="hidden md:flex items-center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
@@ -114,63 +112,82 @@ export default function Navbar() {
           </motion.div>
         </div>
 
-        {/* Mobile Menu */}
-        <div className="md:hidden flex items-center -ml-2">
+        {/* ---------------- MOBILE MENU ---------------- */}
+        <div className="md:hidden flex items-center">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="
-              flex items-center gap-2 px-3 py-1.5 
+              flex items-center gap-2 px-4 py-2 
               rounded-full shadow font-medium 
-              bg-[var(--honey)] text-[var(--background)]
+              text-[var(--background)]
+              active:scale-95 transition-all
             "
           >
+            <span className="text-sm"></span>
             <ChevronLeft
-              size={14}
-              className={`transition-transform ${
+              size={17}
+              className={`text-[var(--sun)] transition-transform ${
                 mobileMenuOpen ? "rotate-0" : "-rotate-180"
               }`}
             />
           </button>
+        </div>
 
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -15, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="
+              absolute left-20 top-full w-full px-25 mt-0
+              flex flex-col
+            "
+          >
+            <div
               className="
-                absolute right-4 top-full mt-3 
-                w-56
-                rounded-2xl px-4 py-4 
-                flex flex-col gap-2
-                backdrop-blur-xl 
-                bg-white/10 
-                border border-white/20
-                shadow-[0_8px_25px_rgba(0,0,0,0.2)]
-                text-[var(--foreground)]
+                rounded-3xl p-2
+                backdrop-blur-1xl bg-white/10
+                border border-white/10
+                shadow-[0_8px_25px_rgba(0,0,0,0.25)]
               "
             >
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={`
-                    px-3 py-2 rounded-lg font-medium 
-                    transition-all backdrop-blur-md 
+                    w-full block px-4 py-3 rounded-xl 
+                    font-medium text-sm transition-all
                     ${
                       pathname === href
-                        ? "bg-[var(--honey)]/80 text-[var(--background)] shadow-md"
-                        : "hover:bg-white/10 active:bg-white/20"
+                        ? "bg-[var(--sun)] text-[var(--background)] shadow-md"
+                        : "text-[var(--foreground)] hover:bg-white/10"
                     }
                   `}
-                  onClick={() => setMobileMenuOpen(false)}
                 >
                   {label}
                 </Link>
               ))}
-            </motion.div>
-          )}
-        </div>
+
+              {/* Mobile CV Button */}
+              <Link
+                href="https://drive.google.com/file/d/1_UX9SOEnPueWsGxjgH2_TAt5Ofu4MrgB/view?usp=sharing"
+                target="_blank"
+                className="
+                  mt-4 w-full flex items-center justify-center px-4 py-3 
+                  rounded-full border border-white/30 
+                  text-[var(--background)]
+                  bg-[var(--sun)] shadow-md
+                  active:scale-55 transition-all text-sm
+                "
+              >
+                Download CV
+              </Link>
+            </div>
+          </motion.div>
+        )}
       </div>
     </nav>
   );
@@ -226,7 +243,7 @@ const NavTab = ({
   );
 };
 
-/* --------------------- 3D Glass Cursor Highlight --------------------- */
+/* --------------------- Highlight Cursor --------------------- */
 
 type CursorProps = { position: Position };
 

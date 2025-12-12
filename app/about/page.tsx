@@ -8,7 +8,7 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 
 /* ----------------------------------------
-   Resume Data (static — safe for client)
+   Resume Data
 ------------------------------------------- */
 
 const education = {
@@ -43,33 +43,34 @@ const experiences = [
 ];
 
 /* ----------------------------------------
-   PAGE COMPONENT — CLEAN + DEPLOY SAFE
+   PAGE — MOBILE CLEAN + RESPONSIVE
 ------------------------------------------- */
 
 export default function AboutPage() {
   return (
     <main className="text-[var(--foreground)]">
-      {/* ----------------------------------------
-          HERO SECTION
-      ------------------------------------------- */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-2 items-center">
+
+      {/* ---------------- HERO SECTION ---------------- */}
+      <section className="py-14 sm:py-20">
+        <div className="max-w-6xl mx-auto px-6 grid gap-12 lg:grid-cols-2 items-center">
+
           {/* TEXT SIDE */}
-          <div>
+          <div className="text-left space-y-4">
             <p className="text-sm font-medium text-[var(--sun)]">About Me</p>
 
-            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold whitespace-nowrap">
-               Hi — I&apos;m Anchal Sahani.
-            </h1>
+           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
+            Hi 👋 I&apos;m <span className="whitespace-nowrap">Anchal Sahani.</span>
+           </h1>
 
 
-            <p className="mt-4 text-base sm:text-lg opacity-90 max-w-xl">
+
+            <p className="text-base sm:text-lg opacity-90 max-w-xl">
               I&apos;m a third-year IT undergrad passionate about building fast,
-              accessible and scalable web experiences. I focus on clean
-              engineering, polished UI/UX, and production-ready development.
+              accessible and scalable web experiences. I focus on clean engineering,
+              polished UI/UX, and production-ready development.
             </p>
 
-            <p className="mt-4 text-base sm:text-lg opacity-90 max-w-xl">
+            <p className="text-base sm:text-lg opacity-90 max-w-xl">
               Currently seeking{" "}
               <span className="text-[var(--sun)] font-semibold">SDE Internships</span>{" "}
               to work on impactful real-world systems.
@@ -78,7 +79,18 @@ export default function AboutPage() {
 
           {/* IMAGE SIDE */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden bg-[var(--surface-900)] border border-[var(--foreground)]/10 shadow-xl">
+            <div
+              className="
+                relative 
+                w-40 h-40 
+                sm:w-60 sm:h-60 
+                md:w-72 md:h-72 
+                rounded-2xl overflow-hidden 
+                bg-[var(--surface-900)] 
+                border border-[var(--foreground)]/10 
+                shadow-xl
+              "
+            >
               <Image
                 src="/avatar.jpg"
                 alt="Anchal Sahani"
@@ -88,16 +100,16 @@ export default function AboutPage() {
               />
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* ----------------------------------------
-          EDUCATION + EXPERIENCE SECTION
-      ------------------------------------------- */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-3">
+      {/* ---------------- EDUCATION + EXPERIENCE ---------------- */}
+      <section className="py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-6 grid gap-8 sm:gap-10 lg:grid-cols-3">
+
           {/* EDUCATION CARD */}
-          <div className="bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--sun)]/10">
+          <div className="bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--sun)]/10 text-left">
             <div className="flex items-center gap-3 mb-4">
               <FiBook className="text-[var(--sun)] w-6 h-6" />
               <h3 className="text-xl text-[var(--sun)] font-semibold">Education</h3>
@@ -114,7 +126,7 @@ export default function AboutPage() {
           </div>
 
           {/* EXPERIENCE CARD */}
-          <div className="lg:col-span-2 bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--foreground)]/10">
+          <div className="lg:col-span-2 bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--foreground)]/10 text-left">
             <div className="flex items-center gap-3 mb-4">
               <FiBriefcase className="text-[var(--sun)] w-6 h-6" />
               <h3 className="text-xl text-[var(--sun)] font-semibold">Experience</h3>
@@ -123,15 +135,16 @@ export default function AboutPage() {
             <div className="space-y-6">
               {experiences.map((exp, index) => (
                 <div key={index}>
-                  <div className="flex justify-between items-start">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
                     <div>
                       <h4 className="font-semibold text-lg">{exp.company}</h4>
                       <p className="opacity-80 text-sm">{exp.role}</p>
                     </div>
+
                     <p className="opacity-60 text-sm">{exp.period}</p>
                   </div>
 
-                  <ul className="mt-2 ml-4 list-disc text-sm opacity-80 space-y-1">
+                  <ul className="mt-2 ml-5 list-disc text-sm opacity-80 space-y-1">
                     {exp.bullets.map((point, idx) => (
                       <li key={idx}>{point}</li>
                     ))}
@@ -140,21 +153,21 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+
         </div>
 
-        {/* SKILLS + PROJECTS */}
+        {/* SKILLS */}
         <div className="mt-12">
           <Skills />
         </div>
 
+        {/* PROJECTS */}
         <div className="mt-16">
           <Projects />
         </div>
       </section>
 
-      {/* ----------------------------------------
-          CTA + FOOTER
-      ------------------------------------------- */}
+      {/* ---------------- CTA + FOOTER ---------------- */}
       <CTASection />
       <Footer />
     </main>
