@@ -19,7 +19,7 @@ export default function Navbar() {
   const [activePos, setActivePos] = useState<Position>({
     left: 0,
     width: 0,
-    opacity: 1,
+    opacity: 0,
   });
 
   const pathname = usePathname();
