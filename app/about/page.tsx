@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { FiBook, FiBriefcase } from "react-icons/fi";
-import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
@@ -168,7 +167,6 @@ export default function AboutPage() {
       </section>
 
       {/* ---------------- CTA + FOOTER ---------------- */}
-      <CTASection />
       <Footer />
     </main>
   );
