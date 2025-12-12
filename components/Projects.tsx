@@ -59,7 +59,7 @@ export default function ProjectsSection() {
           <div className="max-w-2xl space-y-4">
             <div
               className="inline-flex items-center px-4 py-1.5 rounded-full 
-              border border-[var(--foreground)]/20 text-[var(--foreground)] text-sm font-medium"
+              border border-[var(--sun)]/20 text-[var(--sun)] text-sm font-medium"
             >
               <Icon icon="ph:suitcase-simple-duotone" className="mr-2" />
               Projects
@@ -78,8 +78,8 @@ export default function ProjectsSection() {
           <a
             href="#"
             className="
-              px-6 py-3 rounded-full border border-[var(--foreground)]/20 
-              text-[var(--foreground)] hover:bg-[var(--foreground)]/10 
+              px-6 py-3 rounded-full border border-[var(--sun)]/20 
+              text-[var(--sun)] hover:bg-[var(--foreground)]/10 
               transition-all duration-300 flex items-center gap-2
             "
           >
@@ -136,8 +136,8 @@ export default function ProjectsSection() {
                   target="_blank"
                   className="
                     flex items-center gap-2 px-4 py-2 text-sm rounded-full
-                    border border-[var(--honey)] text-[var(--honey)]
-                    hover:bg-[var(--honey)] hover:text-[var(--background)]
+                    border border-[var(--sun)] text-[var(--sun)]
+                    hover:bg-[var(--sun)] hover:text-[var(--background)]
                     transition-all duration-300
                   "
                 >

@@ -32,7 +32,7 @@ export default function PremiumCTA() {
       <div className="relative z-10 max-w-3xl text-center">
         <motion.h2
           className="font-extrabold text-3xl md:text-3xl mb-4 leading-tight"
-          style={{ color: "var(--honey)" }}
+          style={{ color: "var(--sun)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

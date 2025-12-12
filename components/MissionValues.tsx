@@ -57,7 +57,7 @@ export default function MissionValues() {
                 hover:shadow-[0_0_10px_rgba(140,170,255,0.12)]
               "
             >
-              <h3 className="text-xl font-semibold mb-3 text-[var(--honey)] ">
+              <h3 className="text-xl font-semibold mb-3 text-[var(--sun)] ">
                 {v.title}
               </h3>
               <p className="text-sm text-[var(--foreground)] opacity-80 leading-relaxed">

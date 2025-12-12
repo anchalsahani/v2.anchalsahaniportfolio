@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef, ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronLeft, Send } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -28,11 +27,10 @@ export default function Navbar() {
   const navLinks = [
     { href: "/home", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
+    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
 
-  // Scroll effect
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -41,7 +39,7 @@ export default function Navbar() {
   }, []);
 
   const navBgClass = isScrolled
-    ? "bg-[var(--background)] text-[var(--foreground)] backdrop-blur-md shadow-sm border-b border-[var(--grid-major)]"
+    ? "bg-[var(--background)] text-[var(--foreground)] backdrop-blur-xl shadow-sm border-b border-[var(--grid-major)]"
     : "bg-transparent";
 
   return (
@@ -49,32 +47,18 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${navBgClass}`}
     >
       <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6 py-3">
-        {/* Logo */}
-        <Link href="/" className="flex pb-3 items-center gap-0">
-          <Image
-            src="/favicon.svg"
-            alt="ZENTROK Logo"
-            width={45}
-            height={45}
-            className="rounded-md"
-          />
-          <div className="flex flex-col leading-none relative">
-            <span
-              className="text-xl font-extrabold tracking-widest text-[var(--foreground)]"
-              style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
-            >
-              ZENTROK
-            </span>
-            <span
-              className="absolute right-0 text-[10px] mt-6 font-medium text-[var(--foreground)]"
-              style={{ fontFamily: "'Seven Swordsmen BB', sans-serif" }}
-            >
-              Pvt.Ltd.
-            </span>
-          </div>
+        
+        {/* LOGO Placeholder */}
+        <Link href="/" className="flex pb-2 items-center">
+          <span
+            className="text-2xl font-extrabold tracking-wide"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            LOGO
+          </span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 ml-5 justify-center">
           <ul
             onMouseLeave={() => setHoverPos({ ...hoverPos, opacity: 0 })}
@@ -92,22 +76,39 @@ export default function Navbar() {
               </NavTab>
             ))}
 
-            {/* Cursor highlight */}
+            {/* 3D Glass Cursor Highlight */}
             <Cursor position={hoverPos.opacity ? hoverPos : activePos} />
           </ul>
         </div>
 
-        {/* Desktop CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+        {/* Smaller Centered CV Button */}
+        <div className="hidden md:flex items-center">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
-              href="/contact"
-              className="relative flex items-center px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl group transition-all duration-300 pr-9 bg-[var(--honey)] text-[var(--background)]"
+              href="https://drive.google.com/file/d/1_UX9SOEnPueWsGxjgH2_TAt5Ofu4MrgB/view?usp=sharing"
+              target="_blank"
+              className="
+                group relative flex items-center justify-center
+                px-4 py-2
+                rounded-full 
+                border border-current 
+                font-medium 
+                shadow-md hover:shadow-lg 
+                transition-all duration-300 
+                text-sm
+                w-[140px]
+              "
             >
-              <span className="relative z-10">Let&apos;s Work</span>
+              <span className="relative z-10">Download CV</span>
+
               <Send
                 size={16}
-                className="absolute right-3 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                className="
+                  absolute right-2
+                  opacity-0 translate-x-1
+                  group-hover:opacity-100 group-hover:translate-x-0
+                  transition-all duration-300
+                "
               />
             </Link>
           </motion.div>
@@ -118,7 +119,11 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full shadow font-medium bg-[var(--honey)] text-[var(--background)]"
+            className="
+              flex items-center gap-2 px-3 py-1.5 
+              rounded-full shadow font-medium 
+              bg-[var(--honey)] text-[var(--background)]
+            "
           >
             <ChevronLeft
               size={14}
@@ -130,20 +135,34 @@ export default function Navbar() {
 
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute right-4 top-full mt-2 shadow-md rounded-xl px-4 py-3 flex flex-col gap-3 w-48 bg-[var(--surface-900)] text-[var(--foreground)]"
+              initial={{ opacity: 0, y: -15, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              className="
+                absolute right-4 top-full mt-3 
+                w-56
+                rounded-2xl px-4 py-4 
+                flex flex-col gap-2
+                backdrop-blur-xl 
+                bg-white/10 
+                border border-white/20
+                shadow-[0_8px_25px_rgba(0,0,0,0.2)]
+                text-[var(--foreground)]
+              "
             >
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 ${
-                    pathname === href
-                      ? "bg-[var(--honey)] text-[var(--background)]"
-                      : "hover:bg-[var(--surface-1000)]"
-                  }`}
+                  className={`
+                    px-3 py-2 rounded-lg font-medium 
+                    transition-all backdrop-blur-md 
+                    ${
+                      pathname === href
+                        ? "bg-[var(--honey)]/80 text-[var(--background)] shadow-md"
+                        : "hover:bg-white/10 active:bg-white/20"
+                    }
+                  `}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {label}
@@ -157,7 +176,8 @@ export default function Navbar() {
   );
 }
 
-// --------------------- NavTab ---------------------
+/* --------------------- NavTab --------------------- */
+
 type NavTabProps = {
   href: string;
   children: ReactNode;
@@ -206,8 +226,10 @@ const NavTab = ({
   );
 };
 
-// --------------------- Cursor Highlight ---------------------
+/* --------------------- 3D Glass Cursor Highlight --------------------- */
+
 type CursorProps = { position: Position };
+
 const Cursor = ({ position }: CursorProps) => (
   <motion.li
     animate={{
@@ -216,6 +238,12 @@ const Cursor = ({ position }: CursorProps) => (
       opacity: position.opacity,
     }}
     transition={{ type: "spring", damping: 20, stiffness: 300 }}
-    className="absolute z-0 h-full rounded-full bg-[var(--honey)]"
+    className="
+      absolute z-0 h-full rounded-full 
+      bg-[var(--sun)]/70 
+      backdrop-blur-md 
+      shadow-[inset_0_0_10px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.2)]
+      border border-white/20
+    "
   />
 );

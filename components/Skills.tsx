@@ -59,7 +59,7 @@ export default function TechStackBox() {
             inline-flex items-center gap-2 mb-6 px-4 py-1.5 
             rounded-full border border-[var(--foreground)] 
             bg-[var(--surface-900)]
-            text-[var(--foreground)] font-semibold text-sm
+            text-[var(--sun)] font-semibold text-sm
           "
         >
           <Layers size={16} />
@@ -96,7 +96,7 @@ export default function TechStackBox() {
 
         {/* Description */}
         <div className="mt-6">
-          <h3 className="text-2xl font-bold text-[var(--honey)]">
+          <h3 className="text-2xl font-bold text-[var(--sun)]">
             Technologies I work with
           </h3>
           <p className="mt-3 text-[var(--foreground)] opacity-80 text-sm max-w-2xl">

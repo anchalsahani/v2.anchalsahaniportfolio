@@ -73,6 +73,7 @@ export default function Hero() {
         className="
           font-sans font-semibold tracking-wide uppercase 
           mb-3 sm:mb-4 relative z-10 
+          text-cyan-300
           text-[12px] xs:text-sm md:text-base
           text-left sm:text-center
         "
@@ -161,9 +162,9 @@ export default function Hero() {
           </span>
 
           <Send
-            size={20}
+            size={18}
             className="
-              absolute right-4 
+              absolute right-3 
               opacity-0 translate-x-2
               group-hover:opacity-100 group-hover:translate-x-0
               transition-all duration-300 ease-in-out z-10
@@ -199,9 +200,9 @@ export default function Hero() {
           </span>
 
           <Eye
-            size={20}
+            size={18}
             className="
-              absolute right-4 
+              absolute right-3 
               opacity-0 translate-x-2
               group-hover:opacity-100 group-hover:translate-x-0
               transition-all duration-300 ease-in-out z-10

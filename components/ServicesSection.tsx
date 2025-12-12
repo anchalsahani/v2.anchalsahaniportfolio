@@ -83,7 +83,7 @@ export default function ServicesSection() {
                 }}
               >
                 {/* Soft hover glow instead of full gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[rgba(100,140,255,0.12)] to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-0" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[rgba(81,123,250,0.12)] to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 z-0" />
 
                 {/* BACKGROUND BIG ICON (Tilt + darker hover) */}
                 <Icon
@@ -91,7 +91,7 @@ export default function ServicesSection() {
                   className="
                     absolute inset-0 m-auto 
                     text-[var(--foreground)]
-                    opacity-10 
+                    opacity-7 
                     group-hover:opacity-25 
                     group-hover:rotate-6
                     transition-all duration-300 
@@ -101,13 +101,13 @@ export default function ServicesSection() {
 
                 {/* Foreground content */}
                 <div className="relative z-10 flex flex-col items-center transition-colors duration-300">
-                  <Icon className="mb-4 text-4xl text-[var(--foreground)] opacity-90 group-hover:opacity-100 transition-all" />
+                  <Icon className="mb-4 text-4xl text-[var(--sun)] opacity-90 group-hover:opacity-100 transition-all" />
 
-                  <h3 className="text-lg font-semibold mb-2 text-[var(--foreground)]">
+                  <h3 className="text-lg font-bold mb-2 text-[var(--sun)]">
                     {service.title}
                   </h3>
 
-                  <p className="text-[var(--foreground)] opacity-75">
+                  <p className="text-[var(--foreground)] opacity-95">
                     {service.description}
                   </p>
                 </div>

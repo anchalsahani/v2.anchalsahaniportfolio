@@ -58,9 +58,10 @@ export default function AboutPage() {
           <div>
             <p className="text-sm font-medium text-[var(--sun)]">About Me</p>
 
-            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
-              Hi — I&apos;m Anchal Sahani.
+            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold whitespace-nowrap">
+               Hi — I&apos;m Anchal Sahani.
             </h1>
+
 
             <p className="mt-4 text-base sm:text-lg opacity-90 max-w-xl">
               I&apos;m a third-year IT undergrad passionate about building fast,
@@ -96,10 +97,10 @@ export default function AboutPage() {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-3">
           {/* EDUCATION CARD */}
-          <div className="bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--foreground)]/10">
+          <div className="bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--sun)]/10">
             <div className="flex items-center gap-3 mb-4">
-              <FiBook className="text-[var(--honey)] w-6 h-6" />
-              <h3 className="text-xl font-semibold">Education</h3>
+              <FiBook className="text-[var(--sun)] w-6 h-6" />
+              <h3 className="text-xl text-[var(--sun)] font-semibold">Education</h3>
             </div>
 
             <h4 className="font-semibold">{education.school}</h4>
@@ -115,8 +116,8 @@ export default function AboutPage() {
           {/* EXPERIENCE CARD */}
           <div className="lg:col-span-2 bg-[var(--surface-1000)] p-6 rounded-2xl border border-[var(--foreground)]/10">
             <div className="flex items-center gap-3 mb-4">
-              <FiBriefcase className="text-[var(--honey)] w-6 h-6" />
-              <h3 className="text-xl font-semibold">Experience</h3>
+              <FiBriefcase className="text-[var(--sun)] w-6 h-6" />
+              <h3 className="text-xl text-[var(--sun)] font-semibold">Experience</h3>
             </div>
 
             <div className="space-y-6">
