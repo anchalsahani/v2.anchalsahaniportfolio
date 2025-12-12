@@ -42,7 +42,7 @@ const projects = [
     "A modern agency website featuring a fully custom UI, dynamic animations, responsive layouts, and a clean dark-tech theme — built to showcase services, workflow, and brand identity.",
   image: "./zentrok.png",
   tech: ["devicon:nextjs", "devicon:typescript", "devicon:tailwindcss"],
-  live: "https://zentrok.vercel.app/",
+  live: "https://zentrok.com/",
   github: "https://github.com/anchalsahani/Zentrok",
   },
 

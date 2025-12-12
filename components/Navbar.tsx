@@ -101,7 +101,7 @@ export default function Navbar() {
             >
               <span className="relative z-10">Download CV</span>
 
-              <Send
+              <ChevronLeft
                 size={16}
                 className="
                   absolute right-2
