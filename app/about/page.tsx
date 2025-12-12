@@ -76,29 +76,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* IMAGE SIDE */}
-          <div className="flex justify-center lg:justify-end">
-            <div
-              className="
-                relative 
-                w-40 h-40 
-                sm:w-60 sm:h-60 
-                md:w-72 md:h-72 
-                rounded-2xl overflow-hidden 
-                bg-[var(--surface-900)] 
-                border border-[var(--foreground)]/10 
-                shadow-xl
-              "
-            >
-              <Image
-                src="/avatar.jpg"
-                alt="Anchal Sahani"
-                fill
-                priority
-                className="object-cover"
-              />
-            </div>
-          </div>
+
 
         </div>
       </section>
