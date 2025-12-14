@@ -58,7 +58,7 @@ export default function ContactPage() {
 
     setLoading(true);
     try {
-      await fetch("https://z-backend-neon.vercel.app/api/subscribe/send", {
+      await fetch("", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

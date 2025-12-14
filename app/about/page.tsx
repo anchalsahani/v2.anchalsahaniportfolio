@@ -63,6 +63,7 @@ export default function AboutPage() {
       <section className="py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-6 grid gap-12 lg:grid-cols-2 items-center">
 
+          {/* LEFT: TEXT */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -95,6 +96,36 @@ export default function AboutPage() {
               opportunities to work on real-world, high-impact systems.
             </p>
           </motion.div>
+
+          {/* RIGHT: IMAGE */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex justify-center lg:justify-end"
+          >
+            <div className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full overflow-hidden
+                border border-[var(--sun)]/30">
+
+  {/* INNER GRADIENT */}
+  <span
+    className="absolute inset-0 rounded-full
+               bg-[radial-gradient(circle_at_50%_30%,rgba(103,232,249,0.35),transparent_65%)]"
+  />
+
+  {/* IMAGE */}
+  <Image
+    src="/hero1.png"
+    alt="Anchal Sahani"
+    fill
+    className="object-cover relative z-10"
+    priority
+  />
+</div>
+
+          </motion.div>
+
         </div>
       </section>
 
