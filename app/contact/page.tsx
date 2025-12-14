@@ -3,267 +3,251 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Terminal } from "lucide-react";
 
-// Socials from react-icons (brand colors available)
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-
-/* ------------------- TYPES ------------------- */
-type NotificationType = "success" | "error" | "info";
-
-interface NotificationItem {
-  id: number;
-  text: string;
-  type: NotificationType;
-}
-
-interface NotificationProps extends NotificationItem {
-  removeNotif: (id: number) => void;
-}
-
-interface NotificationsContainerProps {
-  notifications: NotificationItem[];
-  removeNotif: (id: number) => void;
-}
-
-/* ------------------- NOTIFICATION SYSTEM ------------------- */
-const NOTIFICATION_TTL = 5000;
-
-const Notification: React.FC<NotificationProps> = ({
-  text,
-  id,
-  removeNotif,
-  type,
-}) => {
-  const bgColors: Record<NotificationType, string> = {
-    success: "bg-[var(--sun)] text-[var(--foreground)]",
-    error: "bg-red-600 text-white",
-    info: "bg-[var(--amber)] text-[var(--foreground)]",
-  };
-
-  const icons: Record<NotificationType, string> = {
-    success: "✔",
-    error: "✖",
-    info: "!",
-  };
-
+/* ================= TYPING HOOK ================= */
+function useTyping(text: string, speed = 35) {
+  const [displayed, setDisplayed] = useState("");
   useEffect(() => {
-    const timeoutRef = setTimeout(() => {
-      removeNotif(id);
-    }, NOTIFICATION_TTL);
-    return () => clearTimeout(timeoutRef);
-  }, [id, removeNotif]);
+    let i = 0;
+    const id = setInterval(() => {
+      setDisplayed(text.slice(0, i + 1));
+      i++;
+      if (i === text.length) clearInterval(id);
+    }, speed);
+    return () => clearInterval(id);
+  }, [text, speed]);
+  return displayed;
+}
 
+/* ================= TERMINAL LINE ================= */
+const TerminalLine = ({ text }: { text: string }) => {
+  const typed = useTyping(text, 22);
   return (
-    <motion.div
-      layout
-      initial={{ y: 40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: 40, opacity: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className={`p-4 flex items-center rounded-lg gap-3 text-sm font-semibold shadow-lg pointer-events-auto ${bgColors[type]}`}
-    >
-      <div className="w-7 h-7 rounded-full border border-current flex items-center justify-center text-xs">
-        {icons[type]}
-      </div>
-      <span className="flex-1">{text}</span>
-    </motion.div>
+    <p className="whitespace-pre">
+      {typed}
+      <span className="animate-pulse">▌</span>
+    </p>
   );
 };
 
-const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
-  notifications,
-  removeNotif,
-}) => (
-  <div className="flex flex-col gap-2 w-80 fixed bottom-4 right-4 z-50 pointer-events-none">
-    <AnimatePresence>
-      {notifications.map((n) => (
-        <Notification key={n.id} {...n} removeNotif={removeNotif} />
-      ))}
-    </AnimatePresence>
-  </div>
-);
-
-/* ------------------- SOCIAL LINKS ------------------- */
-const socialLinks = [
-  { Icon: FaFacebook, link: "https://www.facebook.com/profile.php?id=61579906194112", color: "#1877F2" }, // Facebook Blue
-  { Icon: FaTwitter, link: "https://x.com/Zentrok_05", color: "#1DA1F2" }, // Twitter Blue
-  { Icon: FaInstagram, link: "https://www.instagram.com/zentrok_/", color: "#E4405F" }, // Instagram Pink
-  { Icon: FaLinkedin, link: "#", color: "#0A66C2" }, // LinkedIn Blue
-];
-
-/* ------------------------------------------------------------ */
-
+/* ================= PAGE ================= */
 export default function ContactPage() {
-  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const title = useTyping("contact.tsx", 40);
 
-  const addNotification = (text: string, type: NotificationType) => {
-    setNotifications((pv) => [{ id: Date.now(), text, type }, ...pv]);
-  };
+  const [command, setCommand] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [notif, setNotif] = useState<string | null>(null);
 
-  const removeNotif = (id: number) => {
-    setNotifications((pv) => pv.filter((n) => n.id !== id));
-  };
+  // NEW STATES
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const isValidCommand =
+    command.trim().toLowerCase() === "send;" &&
+    name.trim() &&
+    email.trim() &&
+    message.trim();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+  const handleSubmit = async () => {
+    if (!isValidCommand || loading) return;
 
-    const payload = {
-      name: data.name,
-      email: data.email,
-      summary: data.message,
-    };
-
+    setLoading(true);
     try {
-      const response = await fetch(
-        "https://z-backend-neon.vercel.app/api/subscribe/send",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      await fetch("https://z-backend-neon.vercel.app/api/subscribe/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          summary: message,
+        }),
+      });
 
-      if (response.ok) {
-        form.reset();
-        addNotification("Thank you! Your message has been sent.", "success");
-      } else {
-        const errorData = await response.json();
-        addNotification(errorData.message || "Oops! Server error.", "error");
-      }
-    } catch (error) {
-      console.error("Submission Error:", error);
-      addNotification(
-        "Oops! Something went wrong. Check your connection.",
-        "error"
-      );
+      setNotif("✔ Message sent successfully");
+      setCommand("");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setNotif("✖ Failed to send message");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
+      setTimeout(() => setNotif(null), 4000);
     }
   };
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSubmit();
+  };
+
   return (
-    <div className="min-h-screen flex flex-col text-[var(--foreground)] bg-[var(--background)]">
-      {/* Notifications */}
-      <NotificationsContainer
-        notifications={notifications}
-        removeNotif={removeNotif}
-      />
+    <div className="min-h-screen text-[var(--foreground)]">
+      {/* NOTIFICATION */}
+      <AnimatePresence>
+        {notif && (
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            className="fixed bottom-6 right-6 px-4 py-3 rounded-lg
+                       bg-[var(--sun)] text-black text-sm font-semibold
+                       shadow-xl z-50"
+          >
+            {notif}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Main Section */}
-      <main className="flex-1 container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 py-12">
-        {/* Left - Form */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="bg-[var(--surface-1000)] p-8 rounded-2xl shadow-lg"
-        >
-          <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
+      <main className="max-w-6xl mx-auto px-4 py-16">
+        <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0e1117]">
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows={5}
-              required
-              className="p-3 border rounded-lg w-full bg-[var(--surface-900)] border-[var(--honey)] focus:outline-none focus:border-[var(--sun)]"
-            ></textarea>
+          {/* WINDOW BAR */}
+          <div className="flex items-center justify-between px-4 py-2 bg-[#161b22] border-b border-white/10">
+            <div className="flex gap-2">
+              <span className="w-3 h-3 rounded-full bg-red-500" />
+              <span className="w-3 h-3 rounded-full bg-yellow-400" />
+              <span className="w-3 h-3 rounded-full bg-green-500" />
+            </div>
+            <span className="text-xs opacity-60 font-mono">{title}</span>
+            <span />
+          </div>
 
-            <motion.div
-              whileHover={{ scale: isLoading ? 1 : 1.04 }}
-              whileTap={{ scale: isLoading ? 1 : 0.96 }}
-            >
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="group relative overflow-hidden flex items-center px-6 py-3 rounded-full bg-[var(--sun)] text-[var(--foreground)] font-semibold shadow-lg hover:bg-[var(--amber)] hover:text-white transition-all duration-300 pr-10 disabled:bg-gray-500 disabled:cursor-not-allowed"
+          {/* BODY */}
+          <div className="grid md:grid-cols-[220px_1fr]">
+
+            {/* SIDEBAR */}
+            <aside className="bg-[#0b0f19] border-r border-white/10 p-4 text-sm font-mono">
+              <p className="opacity-60 mb-3">EXPLORER</p>
+              <ul className="space-y-2">
+                <li>📁 app</li>
+                <li className="ml-4">📄 home.tsx</li>
+                <li className="ml-4 text-[var(--sun)]">📄 contact.tsx</li>
+              </ul>
+            </aside>
+
+            {/* EDITOR */}
+            <section className="p-8 space-y-10">
+
+              {/* TERMINAL INFO */}
+              {/* TERMINAL INFO */}
+             <div className="bg-black/40 border border-white/10 rounded-lg p-4 font-mono text-sm">
+              <TerminalLine text="$ whoami" />
+              <p className="ml-4 text-[var(--sun)]">Anchal Sahani</p>
+             <div className="mt-4">
+                 <TerminalLine text="$ contact --info" />
+                 <p className="ml-4 flex items-center gap-2">
+                  <Mail size={14} /> sahanianchal7@gmail.com
+                 </p>
+                 <p className="ml-4 flex items-center gap-2">
+                   <MapPin size={14} /> Delhi, India
+                 </p>
+                 </div>
+              
+                {/* 👇 NEW LINE */}
+                <div className="mt-4 opacity-80">
+                  <TerminalLine text={`$ echo "Hi 👋 feel free to ask any queries below"`} />
+                </div>
+             </div>
+
+
+              {/* TERMINAL FORM INPUTS */}
+              <div className="space-y-4 font-mono text-sm">
+
+                <div className="flex items-center gap-3 px-4 py-3 rounded-lg
+                                bg-white/5 backdrop-blur-xl
+                                border border-white/15">
+                  <span className="text-[var(--sun)]">$</span>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="name"
+                    className="flex-1 bg-transparent outline-none
+                               text-[var(--foreground)]
+                               placeholder:text-white/30"
+                  />
+                </div>
+
+                <div className="flex items-center gap-3 px-4 py-3 rounded-lg
+                                bg-white/5 backdrop-blur-xl
+                                border border-white/15">
+                  <span className="text-[var(--sun)]">$</span>
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="email"
+                    type="email"
+                    className="flex-1 bg-transparent outline-none
+                               text-[var(--foreground)]
+                               placeholder:text-white/30"
+                  />
+                </div>
+
+                <div className="flex items-start gap-3 px-4 py-3 rounded-lg
+                                bg-white/5 backdrop-blur-xl
+                                border border-white/15">
+                  <span className="text-[var(--sun)] mt-1">$</span>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="message"
+                    rows={4}
+                    className="flex-1 bg-transparent outline-none resize-none
+                               text-[var(--foreground)]
+                               placeholder:text-white/30"
+                  />
+                </div>
+
+              </div>
+
+              {/* TERMINAL SEND */}
+              <div
+                className="relative flex items-center gap-3 px-4 py-3
+                           rounded-lg bg-white/5 backdrop-blur-xl
+                           border border-white/15 font-mono text-sm
+                           shadow-[0_15px_40px_rgba(0,0,0,0.5)]"
               >
-                <span className="relative z-10 mr-4">
-                  {isLoading ? "Sending..." : "Send Message"}
-                </span>
-                <Send
-                  size={18}
-                  className={`absolute right-3 z-10 transition-all duration-300 ease-in-out ${
-                    isLoading
-                      ? "opacity-0"
-                      : "opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-2"
-                  }`}
+                <Terminal size={16} className="text-[var(--sun)]" />
+                <span className="text-[var(--sun)]">$</span>
+
+                <input
+                  value={command}
+                  onChange={(e) => setCommand(e.target.value)}
+                  onKeyDown={onKeyDown}
+                  placeholder="type send;"
+                  className="flex-1 bg-transparent outline-none
+                             text-[var(--foreground)]
+                             placeholder:text-white/30"
                 />
-              </button>
-            </motion.div>
-          </form>
-        </motion.div>
 
-        {/* Right - Info */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col space-y-8 relative"
-        >
-          <div className="absolute -top-12 mt-20 right-0">
-            <h1 className="text-3xl sm:text-4xl font-bold ">Contact Us</h1>
-            <p className="mt-2 opacity-80">
-              We&apos;d love to hear from you! Reach out using the form or
-              details below.
-            </p>
-          </div>
-
-          <div className="pt-16 mt-20">
-            <div className="flex items-start space-x-4">
-              <Mail className="text-[var(--sun)] w-6 h-6" />
-              <div>
-                <h3 className="font-semibold">Email</h3>
-                <p className="opacity-80">sahanianchal7@gmail.com</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 mt-6">
-              <MapPin className="text-[var(--sun)] w-6 h-6" />
-              <div>
-                <h3 className="font-semibold">Address</h3>
-                <p className="opacity-80">Delhi, India</p>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex space-x-6 mt-8">
-              {socialLinks.map(({ Icon, link, color }, i) => (
-                <a
-                  key={i}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-transform hover:scale-110"
+                <motion.div
+                  animate={{
+                    opacity: isValidCommand ? 1 : 0.3,
+                    scale: isValidCommand ? 1.05 : 1,
+                  }}
+                  className="px-3 py-1 rounded-md border border-white/20
+                             bg-white/5 text-xs"
                 >
-                  <Icon className="w-6 h-6" style={{ color }} />
-                </a>
-              ))}
-            </div>
+                  ENTER
+                </motion.div>
+
+                {isValidCommand && (
+                  <span className="absolute inset-0 rounded-lg
+                    bg-[radial-gradient(circle_at_50%_120%,rgba(62,248,169,0.25),transparent_70%)]
+                    pointer-events-none" />
+                )}
+              </div>
+
+              <p className="text-xs font-mono opacity-50">
+                Fill details → type <span className="text-[var(--sun)]">send;</span> → press Enter
+              </p>
+
+            </section>
           </div>
-        </motion.div>
+        </div>
       </main>
+
       <Footer />
     </div>
   );
