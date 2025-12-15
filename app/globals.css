@@ -88,10 +88,10 @@ body::before {
   position: absolute;
   top: -250px;
   left: 0;
-  width: 100%;
-  height: 450px;
+  width: 70%;
+  height: 500px;
   background: radial-gradient(
-    ellipse at 70% 0%,
+    ellipse at 70% 15%,
     rgba(60, 110, 255, 0.15),
     rgba(40, 70, 200, 0.10),
     transparent 70%
