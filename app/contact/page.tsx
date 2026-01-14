@@ -3,7 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "@/components/Footer";
-import { Mail, MapPin, Terminal } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Terminal,
+  Github,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
 
 /* ================= TYPING HOOK ================= */
 function useTyping(text: string, speed = 35) {
@@ -133,18 +140,51 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-[220px_1fr]">
 
             {/* SIDEBAR */}
-            <aside className="bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 p-4 text-sm font-mono">
-              <p className="opacity-60 mb-3">EXPLORER</p>
-              <ul className="space-y-2">
-                <li>📁 app</li>
-                <li className="ml-4">📄 home.tsx</li>
-                <li className="ml-4 text-[var(--sun)]">📄 contact.tsx</li>
-              </ul>
+            <aside className="bg-[#0b0f19] border-b md:border-b-0 md:border-r border-white/10 p-4
+                              text-sm font-mono flex flex-col justify-between">
+              <div>
+                <p className="opacity-60 mb-3">EXPLORER</p>
+                <ul className="space-y-2">
+                  <li>📁 app</li>
+                  <li className="ml-4">📄 home.tsx</li>
+                  <li className="ml-4 text-[var(--sun)]">📄 contact.tsx</li>
+                </ul>
+              </div>
+
+              {/* SOCIAL ICONS */}
+              <div className="flex flex-col items-center gap-4 pt-6 border-t border-white/10">
+                <a
+                  href="https://github.com/anchalsahani"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-60 hover:opacity-100 hover:text-[var(--sun)] transition"
+                >
+                  <Github size={18} />
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/anchal-sahani/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-60 hover:opacity-100 hover:text-[var(--sun)] transition"
+                >
+                  <Linkedin size={18} />
+                </a>
+
+                <a
+                  href="https://x.com/sahanianchal7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-60 hover:opacity-100 hover:text-[var(--sun)] transition"
+                >
+                  <Twitter size={18} />
+                </a>
+              </div>
             </aside>
 
             {/* EDITOR */}
             <section className="p-4 sm:p-6 md:p-8 space-y-8 md:space-y-10">
-
+              {/* (UNCHANGED CONTENT BELOW) */}
               {/* TERMINAL INFO */}
               <div className="bg-black/40 border border-white/10 rounded-lg p-4
                               font-mono text-xs sm:text-sm overflow-hidden">
@@ -162,11 +202,12 @@ export default function ContactPage() {
                 </div>
 
                 <div className="mt-4 opacity-80">
-                  <TerminalLine text={`$ echo "Hi 👋 feel free to ask any queries below"`} />
+                  <TerminalLine
+                    text={`$ echo "Hi 👋 feel free to ask any queries below"`}
+                  />
                 </div>
               </div>
 
-              {/* TERMINAL FORM INPUTS */}
               <div className="space-y-4 font-mono text-sm">
 
                 <div className="flex items-center gap-3 min-w-0 px-4 py-3 rounded-lg
@@ -259,7 +300,6 @@ export default function ContactPage() {
               <p className="text-xs font-mono opacity-50">
                 Fill details → type <span className="text-[var(--sun)]">send;</span> → press Enter
               </p>
-
             </section>
           </div>
         </div>

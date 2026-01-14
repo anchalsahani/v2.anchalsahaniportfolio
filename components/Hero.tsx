@@ -121,7 +121,7 @@ export default function Hero() {
           opacity-90
         "
       >
-        I turn ideas into production-ready solutions — fast, scalable, and beautifully executed.
+        I turn ideas into production ready solutions <br></br> fast, scalable, and beautifully executed.
       </p>
 
       {/* CTA Buttons */}

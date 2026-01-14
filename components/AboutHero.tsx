@@ -39,8 +39,8 @@ export default function AboutHero() {
 
           {/* Subtext */}
           <p className="mt-5 sm:mt-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed opacity-80">
-            I’m a software developer focused on creating intuitive interfaces, 
-            performant applications, and seamless user experiences — powered by 
+            I&apos;m a software developer focused on creating intuitive interfaces, 
+            performant applications, and seamless user experiences powered by 
             clean architecture, modern tooling, and thoughtful design.
           </p>
 
