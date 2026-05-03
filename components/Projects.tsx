@@ -10,7 +10,7 @@ const projects = [
     year: 2026,
     description:
       "Built a real-time multiplayer game using WebSockets, enabling low-latency communication and synchronized gameplay across users.",
-    image: "./advika.png",
+    image: "./rmcs.png",
     tech: ["devicon:react", "devicon:nodejs", "devicon:express", "devicon:mongodb", "devicon:openai", "devicon:socketio"],
     live: "https://rmcs-eight.vercel.app/",
     github: "https://github.com/anchalsahani/rmcs",
