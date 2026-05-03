@@ -83,7 +83,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
-              href="https://drive.google.com/file/d/1UnyXO4vRU9eOY1GSDT7uZLly3EOBaRdD/view?usp=sharing"
+              href="https://drive.google.com/file/d/1NrbJcM02pDCQSIBpyM3Hs335RTlF4A9A/view?usp=sharing"
               target="_blank"
               className="
                 group relative flex items-center justify-center
