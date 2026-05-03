@@ -5,6 +5,16 @@ import { ExternalLink, Github } from "lucide-react";
 import { Icon } from "@iconify/react";
 
 const projects = [
+   {
+    title: "Raja Mantri Chor Sipahi",
+    year: 2026,
+    description:
+      "Built a real-time multiplayer game using WebSockets, enabling low-latency communication and synchronized gameplay across users.",
+    image: "./advika.png",
+    tech: ["devicon:react", "devicon:nodejs", "devicon:express", "devicon:mongodb", "devicon:openai", "devicon:socketio"],
+    live: "https://rmcs-eight.vercel.app/",
+    github: "https://github.com/anchalsahani/rmcs",
+  },
   {
     title: "HealthCare Website",
     year: 2025,
