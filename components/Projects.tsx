@@ -4,7 +4,18 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Icon } from "@iconify/react";
 
-const projects = [
+const projects = [   
+   {
+    title: "Maui",
+    year: 2026,
+    description:
+      "Maui is a real-time anti-procrastination system designed for individuals struggling with Executive Dysfunction and Task Initiation.",
+    image: "./maui.png",
+    tech: ["devicon:react", "devicon:nodejs", "devicon:express", "devicon:mongodb", "devicon:openai", "devicon:socketio"],
+    live: " ",
+    github: "https://github.com/anchalsahani/maui",
+  },
+   
    {
     title: "Raja Mantri Chor Sipahi",
     year: 2026,
